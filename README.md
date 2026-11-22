@@ -185,3 +185,13 @@ The interface is buildless HTML, CSS, and JavaScript. In-browser arbitrary Pytho
 ## Source brief
 
 This README summarizes the supplied PDF, **Scikit-learn: From Foundations to Independent Projects (with lessons, tests, and projects)**. The PDF is the detailed curriculum reference; this README is the repository overview.
+
+## Teaching-depth revision
+
+Revision 2 adds standalone applied labs to existing chapters and replaces frozen-output recall with new-input transfer snippets. See [the verified review and coverage map](docs/content-review.md). The notebook bundle includes the labs; their execution results appear in the example record.
+
+The original curriculum workload estimates predate these additions and are not revised measured completion times. Existing browser progress is retained. New test attempts use the revised question bank; earlier saved results remain labeled as earlier-revision results.
+
+Optional follow-on tooling: [MLflow, DVC, Docker, SHAP and LIME guide](dist/downloads/practitioner-tooling.md). These separately installed integrations were not executed as part of the frozen course environment. `Dockerfile.static` is an optional static-site container recipe, not the Sites hosting configuration.
+
+For the optional DOM integration checks, install `linkedom` in a development-only location and make it available to Node, then run `node scripts/check_ui.cjs`. No frontend package installation is needed to serve the site. `python scripts/check_content.py` checks generated lesson/lab assets and assessment quotas.

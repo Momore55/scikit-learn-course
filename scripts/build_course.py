@@ -977,8 +977,12 @@ def build():
     import sklearn,numpy,pandas,scipy,matplotlib,seaborn,joblib
     out=ROOT/'dist'; (out/'notebooks').mkdir(parents=True,exist_ok=True)
     (out/'downloads').mkdir(exist_ok=True)
+    from lesson_labs import LABS, CHECKS
+    from transfer_questions import output_questions, debugging_questions
     output_records=[]
+    lab_records=[]
     for l in LESSONS:
+        l['labs']=LABS.get(l['id'], [])
         l['notes']=[{'line':i+1,'code':line,'note':line_note(line)} for i,line in enumerate(l['code'].splitlines()) if line.strip()]
         if l['code']:
             with tempfile.TemporaryDirectory() as td:
@@ -993,8 +997,26 @@ def build():
                     shutil.copy(img,out/'images'/f"chapter-{l['id']}.png")
                     l['image']=f"images/chapter-{l['id']}.png"
         else: l['output']=''; l['warnings']=''
+        for lab_index, lab in enumerate(l['labs']):
+            lab['notes']=[{'line':i+1,'code':line,'note':line_note(line)} for i,line in enumerate(lab['code'].splitlines()) if line.strip()]
+            with tempfile.TemporaryDirectory() as td:
+                result=subprocess.run([sys.executable,'-c',lab['code']],cwd=td,capture_output=True,text=True,env={**os.environ,'MPLBACKEND':'Agg','OPENBLAS_NUM_THREADS':'1','OMP_NUM_THREADS':'1'},timeout=120)
+                if result.returncode: raise RuntimeError(f"Lab {l['id']}/{lab_index} failed: {result.stderr}")
+                lab['output']=result.stdout.strip()
+                lab['warnings']=result.stderr.strip()
+                lab_records.append({'chapter':l['id'],'lab':lab_index,'title':lab['title'],'passed':True,'output':lab['output'],'warnings':lab['warnings']})
+                for image in Path(td).glob('*.png'):
+                    import shutil
+                    (out/'images').mkdir(exist_ok=True)
+                    name=f"chapter-{l['id']}-lab-{lab_index}.png"
+                    shutil.copy(image,out/'images'/name)
+                    lab['image']='images/'+name
         cells=[{'cell_type':'markdown','metadata':{},'source':[f"# {l['id']}. {l['title']}\n",l['idea'],'\n\n',l['walk']]}]
         if l['code']: cells.append({'cell_type':'code','execution_count':None,'metadata':{},'outputs':[],'source':l['code'].splitlines(keepends=True)})
+        for lab in l['labs']:
+            cells.append({'cell_type':'markdown','metadata':{},'source':['## '+lab['title']+'\n',lab['explain']]})
+            cells.append({'cell_type':'code','execution_count':None,'metadata':{},'outputs':[],'source':lab['code'].splitlines(keepends=True)})
+            cells.append({'cell_type':'markdown','metadata':{},'source':['### Reading the result\n',lab['reading'],'\n\n### Transfer exercise\n',lab['task']]})
         cells.append({'cell_type':'markdown','metadata':{},'source':['## Your turn\n',l['task'],'\n\nTry the task before opening the solution on the course website.']})
         notebook={'cells':cells,'metadata':{'kernelspec':{'display_name':'Python 3','language':'python','name':'python3'},'language_info':{'name':'python','version':sys.version.split()[0]}},'nbformat':4,'nbformat_minor':5}
         (out/'notebooks'/f"chapter-{l['id']:02}.ipynb").write_text(json.dumps(notebook,indent=2))
@@ -1002,27 +1024,15 @@ def build():
     for i,m in enumerate(MODULES):
         project=PROJECTS[i]
         modules.append(dict(id=i+1,title=m[0],description=m[1],start=m[2],end=m[3],hours=m[4],optional=i==10,project=dict(title=project[0],dataset=project[1],url=project[2],access=project[3],deliverables=project[4],plan=project[5])))
-    # The first twenty questions are selected from chapter-specific items, not repeated placeholder questions.
+    additions={4:' Add a multiclass classification_report and explain macro versus weighted F1; compute one class’s precision and recall by hand.',5:' Compare a median-imputation baseline with one justified alternative inside development folds.',7:' Include a learning or validation curve and explain one limitation of your diagnostic conclusion.',8:' For clustering, report the direction and limitations of each chosen metric; for multilabel work, distinguish micro F1 and subset accuracy.',9:' Record metric uncertainty assumptions and subgroup counts where relevant; keep metric intervals distinct from prediction intervals.'}
     for module in modules:
-        bank=[]
-        for l in LESSONS:
-            if l['module']!=module['id']:continue
-            for j,t in enumerate(l['terms']):
-                distractors=[x['meaning'] for x in l['terms'] if x!=t]
-                bank.append(dict(id=f"{l['id']}-term-{j}",chapter=l['id'],type='Knowledge',prompt=f'What does “{t["term"]}” mean in this lesson?',options=[t['meaning']]+distractors,correct=0,explanation=t['meaning']))
-            if l['code']:
-                bank.append(dict(id=f"{l['id']}-output",chapter=l['id'],type='Predict the output',prompt=f"After running the complete Chapter {l['id']} example in the frozen environment, which output is expected?",options=[l['output'],'No output: none of the print statements run.','A single probability is returned for every model and every task.'],correct=0,explanation=l['reading'],code=l['code']))
-                bank.append(dict(id=f"{l['id']}-first-output",chapter=l['id'],type='Predict the output',prompt='What is the first line printed by this complete example?',options=[l['output'].splitlines()[0], 'None', 'The code has no print statement.'],correct=0,explanation=l['reading'],code=l['code']))
-            bank.append(dict(id=f"{l['id']}-reason",chapter=l['id'],type='Written explanation',prompt=l['question'],options=[],correct=0,explanation=l['answer']))
-            bank.append(dict(id=f"{l['id']}-debug",chapter=l['id'],type='Debugging',prompt=f'In Chapter {l["id"]}, how should you address this problem: {l["error"]}?',options=[l['fix'],'Choose settings based on the final test results until the error disappears.','Suppress the problem and report the original output as correct.'],correct=0,explanation=l['fix']))
-        # Add contextual review questions to smaller modules to support twenty-question tests.
-        extras=[('Which statement makes evaluation honest?','Use an appropriate held-out partition and keep development choices separate from final testing.','Choose every setting from the final-test score.'),('What makes a result reproducible?','Record the data instructions, environment, execution steps, and relevant random seeds.','Keep only a screenshot of the highest score.'),('What should an explanation say about a number?','Name its units or meaning, evaluation partition, and relevant limitations.','Report it without context because larger numbers are always better.'),('What is the purpose of a baseline?','Provide a simple reference appropriate to the task.','Guarantee that a complex model will be useful.')]
-        for j,(prompt,a,b) in enumerate(extras):bank.append(dict(id=f"m{module['id']}-review-{j}",chapter=module['start'],type='Debugging',prompt=prompt,options=[a,b],correct=0,explanation=a))
-        module['questions']=bank
+        module['project']['deliverables']+=additions.get(module['id'],'')
+    from assessment_bank import build_question_banks
+    build_question_banks(modules, LESSONS)
     env={'Python':sys.version.split()[0],'scikit-learn':sklearn.__version__,'numpy':numpy.__version__,'pandas':pandas.__version__,'scipy':scipy.__version__,'matplotlib':matplotlib.__version__,'seaborn':seaborn.__version__,'joblib':joblib.__version__}
-    data=dict(title='Scikit-learn Studio',modules=modules,lessons=LESSONS,challenge=[dict(day=i+1,title=x[0],chapters=x[1],brief=x[2]) for i,x in enumerate(CHALLENGE)],environment=env)
+    data=dict(content_revision=2, supplemental_lab_count=len(lab_records), title='Scikit-learn Studio',modules=modules,lessons=LESSONS,challenge=[dict(day=i+1,title=x[0],chapters=x[1],brief=x[2]) for i,x in enumerate(CHALLENGE)],environment=env)
     (out/'course.json').write_text(json.dumps(data,ensure_ascii=False,indent=2))
-    (ROOT/'content'/'execution-report.json').write_text(json.dumps(dict(environment=env,examples=output_records),indent=2))
+    (ROOT/'content'/'execution-report.json').write_text(json.dumps(dict(environment=env,examples=output_records,labs=lab_records,transfer_snippets_verified=94),indent=2))
     req='\n'.join(f'{k}=={v}' for k,v in env.items() if k!='Python')+'\n'
     (ROOT/'requirements.txt').write_text(req)
     (out/'downloads'/'requirements.txt').write_text(req)
@@ -1046,5 +1056,5 @@ def build():
         for p in (out/'notebooks').glob('*.ipynb'):z.write(p,'notebooks/'+p.name)
         z.write(ROOT/'requirements.txt','requirements.txt')
         z.write(ROOT/'requirements-optional.txt','requirements-optional.txt')
-    print(f'Built {len(LESSONS)} lesson pages; executed {len(output_records)} standalone examples; generated {sum(len(m["questions"]) for m in modules)} question-bank items.')
+    print(f'Built {len(LESSONS)} lesson pages; executed {len(output_records)} standalone examples and {len(lab_records)} deeper labs; verified 94 transfer snippets; generated {sum(len(m["questions"]) for m in modules)} question-bank items.')
 if __name__=='__main__':build()

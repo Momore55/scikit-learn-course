@@ -18,4 +18,17 @@ for l in d['lessons']:
     if l.get('image'):assert (p/l['image']).exists()
 report=json.loads((p/'downloads'/'execution-report.json').read_text())
 assert len(report['examples'])==45 and all(x['passed'] for x in report['examples'])
-print('PASS: 47 chapters, 45 executed examples, 47 notebooks, 11 modules, assessment quota pools, 14 challenge briefs and output artifacts.')
+assert len(report.get('labs',[])) == 19 and all(x['passed'] for x in report['labs'])
+assert report.get('transfer_snippets_verified') == 94
+for lesson in d['lessons']:
+    for lab in lesson.get('labs',[]):
+        assert lab['output'] and lab['reading'] and lab['solution']
+        if lab.get('image'): assert (p/lab['image']).exists()
+for module in d['modules']:
+    for question in module['questions']:
+        assert 'frozen environment, which output' not in question['prompt']
+        assert 'first line printed' not in question['prompt']
+        assert '-review-' not in question['id']
+    assert len({q['id'] for q in module['questions']})==len(module['questions'])
+assert (p/'downloads'/'practitioner-tooling.md').exists()
+print('PASS: 47 chapters, 45 base examples, 19 applied labs, 94 verified transfer snippets, notebooks, assets, assessment quotas and challenge briefs.')

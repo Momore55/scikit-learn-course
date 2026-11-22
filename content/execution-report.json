@@ -280,5 +280,160 @@
       "output": "Valid: 200 {'prediction': 9.0}\nInvalid status: 422",
       "warnings": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n  from starlette.testclient import TestClient as TestClient  # noqa"
     }
-  ]
+  ],
+  "labs": [
+    {
+      "chapter": 13,
+      "lab": 0,
+      "title": "Multiclass metrics: whose mistakes count?",
+      "passed": true,
+      "output": "precision    recall  f1-score   support\n\n           A      0.667     0.667     0.667         3\n           B      0.250     0.500     0.333         2\n           C      1.000     0.333     0.500         3\n\n    accuracy                          0.500         8\n   macro avg      0.639     0.500     0.500         8\nweighted avg      0.688     0.500     0.521         8\n\nmacro 0.5\nmicro 0.5\nweighted 0.521",
+      "warnings": ""
+    },
+    {
+      "chapter": 14,
+      "lab": 0,
+      "title": "Compare imputers and preserve missingness",
+      "passed": true,
+      "output": "SimpleImputer [[3.0, 25.0], [3.5, 35.0]]\nKNNImputer [[3.5, 25.0], [3.5, 35.0]]\nIterativeImputer [[2.5, 25.0], [3.5, 35.0]]\nMissing flags: [[1, 0], [0, 1]]",
+      "warnings": ""
+    },
+    {
+      "chapter": 16,
+      "lab": 0,
+      "title": "Choose a transformation for a reason",
+      "passed": true,
+      "output": "RobustScaler shape (8, 1) first row [-0.857]\nPowerTransformer shape (8, 1) first row [-1.87]\nQuantileTransformer shape (8, 1) first row [-5.199]\nKBinsDiscretizer shape (8, 1) first row [0.0]\nSplineTransformer shape (8, 3) first row [0.5, 0.5, 0.0]",
+      "warnings": ""
+    },
+    {
+      "chapter": 17,
+      "lab": 0,
+      "title": "Inspect named features without changing global state",
+      "passed": true,
+      "output": "Columns: ['num__hours', 'cat__city_A', 'cat__city_B']\nNames agree: True",
+      "warnings": ""
+    },
+    {
+      "chapter": 22,
+      "lab": 0,
+      "title": "Native categorical histogram boosting",
+      "passed": true,
+      "output": "Categorical mask: [True, False]\nValidation accuracy: 1.0",
+      "warnings": ""
+    },
+    {
+      "chapter": 22,
+      "lab": 1,
+      "title": "Regression prediction intervals with quantile loss",
+      "passed": true,
+      "output": "Empirical coverage: 0.653\nMean signed width: 6.782\nCrossed bounds: 0",
+      "warnings": ""
+    },
+    {
+      "chapter": 24,
+      "lab": 0,
+      "title": "Nested cross-validation: evaluate the selection procedure",
+      "passed": true,
+      "output": "Outer accuracies: [0.983 0.966 1.   ]\nMean / spread: 0.983 0.014\nFits: 21",
+      "warnings": ""
+    },
+    {
+      "chapter": 27,
+      "lab": 0,
+      "title": "Learning curves and validation curves you can read",
+      "passed": true,
+      "output": "Sizes: [47, 82, 118]\nLearning validation means: [0.955, 0.977, 0.983]\nSetting validation means: [0.972, 0.983, 0.983, 0.989]",
+      "warnings": ""
+    },
+    {
+      "chapter": 29,
+      "lab": 0,
+      "title": "Clustering quality and stability are different questions",
+      "passed": true,
+      "output": "Silhouette: 0.285\nDavies-Bouldin: 1.389\nCalinski-Harabasz: 70.94\nSeed agreement (ARI): 1.0",
+      "warnings": ""
+    },
+    {
+      "chapter": 30,
+      "lab": 0,
+      "title": "Four selectors inside the evaluation boundary",
+      "passed": true,
+      "output": "SelectKBest 0.9\nSelectFromModel 0.933\nRFE 0.925\nSequentialFeatureSelector 0.925",
+      "warnings": ""
+    },
+    {
+      "chapter": 31,
+      "lab": 0,
+      "title": "One-versus-rest ROC and precision\u2013recall",
+      "passed": true,
+      "output": "Class 0 AUC 1.0 AP 1.0\nClass 1 AUC 1.0 AP 1.0\nClass 2 AUC 1.0 AP 1.0\nMacro OVR AUC: 1.0",
+      "warnings": ""
+    },
+    {
+      "chapter": 32,
+      "lab": 0,
+      "title": "Permutation importance, PDP, and ICE in pictures",
+      "passed": true,
+      "output": "Permutation means: [1.271, 0.963, 0.108, 1.243, 0.414]",
+      "warnings": ""
+    },
+    {
+      "chapter": 33,
+      "lab": 0,
+      "title": "Metric uncertainty, OOF predictions, and a permutation test",
+      "passed": true,
+      "output": "Held-out MAE: 11.792\nApproximate 95% percentile interval: [9.478, 14.642]\nOOF prediction count: 178\nObserved score / permutation p-value: 0.983 0.05",
+      "warnings": ""
+    },
+    {
+      "chapter": 33,
+      "lab": 1,
+      "title": "Subgroup checks and fairness questions",
+      "passed": true,
+      "output": "A n 6 positives 3 recall 0.667 FPR 0.333\nB n 6 positives 2 recall 0.5 FPR 0.0",
+      "warnings": ""
+    },
+    {
+      "chapter": 34,
+      "lab": 0,
+      "title": "Feature names and version compatibility are part of the artifact",
+      "passed": true,
+      "output": "Expected names: ['hours', 'distance']\nUnnamed-input warnings: 1\nReordered named columns: rejected",
+      "warnings": ""
+    },
+    {
+      "chapter": 35,
+      "lab": 0,
+      "title": "Track an experiment and identify its data",
+      "passed": true,
+      "output": "Recorded dataset: sklearn.load_wine\nHash length: 64\nValidation accuracy: 1.0",
+      "warnings": ""
+    },
+    {
+      "chapter": 39,
+      "lab": 0,
+      "title": "A small neural-network model-family tour",
+      "passed": true,
+      "output": "MLP validation accuracy: 0.933\nMLP original-unit MAE: 3.792",
+      "warnings": ""
+    },
+    {
+      "chapter": 43,
+      "lab": 0,
+      "title": "Hard voting, soft voting, AdaBoost, and stacking",
+      "passed": true,
+      "output": "hard vote 0.955\nsoft vote 0.955\nAdaBoost 0.932\nstacking 0.977",
+      "warnings": ""
+    },
+    {
+      "chapter": 47,
+      "lab": 0,
+      "title": "Monitor inputs without pretending you know accuracy",
+      "passed": true,
+      "output": "Window sizes: 200 200\nKS effect statistic: 0.305\nKS p-value: 0.0\nMissing rate: 0.0",
+      "warnings": ""
+    }
+  ],
+  "transfer_snippets_verified": 94
 }

@@ -1,5 +1,7 @@
 # Scikit-learn: From Foundations to Independent Projects
 
+Course outline and lesson index.
+
 ## Module 1: First success
 
 Your first model, one understandable step at a time.
