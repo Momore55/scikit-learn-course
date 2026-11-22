@@ -4,7 +4,45 @@ A learning website for building practical machine-learning skills with scikit-le
 
 ## Project status
 
-The curriculum and teaching brief have been supplied. Website implementation and lesson development are pending. This repository currently establishes the project documentation; no live course deployment is available yet.
+The first working self-study website is implemented in `dist/`. It includes 47 lesson routes, executed Python examples and outputs, notebook downloads, quizzes, module tests, project self-review gates, local notes and progress, glossary search, and the 14-day challenge.
+
+Design: bright green and lime, raised buttons, a playful CSS sprout character, and responsive lesson layouts. Progress stays in each browser and can be exported/imported; no cross-device account sync or automatic notebook grading is provided. Objective test items are scored automatically; written answers and projects use disclosed self-review.
+
+This first edition has not been timed with beginner pilot readers. Broader editorial review and more varied assessment items remain useful before treating it as a validated course.
+
+## Run locally
+
+No frontend build or package installation is required:
+
+```sh
+git clone https://github.com/Momore55/scikit-learn-course.git
+cd scikit-learn-course
+python -m http.server 8000 --directory dist
+```
+
+Open http://localhost:8000. Opening `dist/index.html` directly as a file will not reliably load the JSON content.
+
+To reproduce the Python examples and regenerate lesson data/notebooks, use Python 3.12, install `requirements.txt` and `requirements-optional.txt` in a virtual environment, then run:
+
+```sh
+python scripts/build_course.py
+python scripts/check_content.py
+node --check dist/app.js
+```
+
+`build_course.py` runs each standalone lesson example, captures its real output, writes an execution report, and stops if an example fails. Optional example packages are needed to regenerate all 47 lessons. The downloadable notebooks can also be opened individually in Jupyter or a compatible hosted notebook.
+
+## Source layout
+
+- `dist/index.html`, `dist/style.css`, `dist/app.js`: deployable static interface.
+- `dist/course.json`: generated lessons, module briefs, question banks and challenge tasks.
+- `scripts/build_course.py`: authored lesson source and reproducible content builder.
+- `scripts/check_content.py`: integrity checks for content, quotas and downloadable assets.
+- `dist/downloads/course-outline.md`: generated module and chapter index. The original source PDF is not distributed in this public repository.
+- `content/execution-report.json`: recorded example results and environment.
+- `.openai/hosting.json`: Site identity and static hosting configuration.
+
+The same `dist/` directory can be hosted on a static hosting provider. Website edits in GitHub are not automatically deployed to the Sites publication; publishing requires the documented Sites source/version workflow.
 
 ## Learning outcomes
 
@@ -142,7 +180,7 @@ Supporting references will include a linked glossary, syntax and shape reference
 
 Planned capabilities include organized lesson navigation, mobile and desktop reading, quizzes, project pages, progress tracking, search, a glossary, and downloadable practice material.
 
-The framework, local setup commands, deployment configuration, and hosting URL will be documented when implementation is added. In-browser Python execution is not assumed by this initial brief.
+The interface is buildless HTML, CSS, and JavaScript. In-browser arbitrary Python execution is not included; learners run the downloadable notebooks in their own Python environment.
 
 ## Source brief
 

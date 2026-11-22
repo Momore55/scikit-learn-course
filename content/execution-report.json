@@ -1,0 +1,284 @@
+{
+  "environment": {
+    "Python": "3.12.14",
+    "scikit-learn": "1.8.0",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scipy": "1.17.0",
+    "matplotlib": "3.10.8",
+    "seaborn": "0.13.2",
+    "joblib": "1.5.3"
+  },
+  "examples": [
+    {
+      "chapter": 1,
+      "passed": true,
+      "output": "Shapes: (569, 30) (569,)\nBaseline accuracy: 0.632\nModel accuracy: 0.982\nClasses: [0 1]\nFirst probabilities: [[1. 0.]]",
+      "warnings": ""
+    },
+    {
+      "chapter": 2,
+      "passed": true,
+      "output": "Weight: [2.]\nBias: 1.0\nPrediction: [9.]",
+      "warnings": ""
+    },
+    {
+      "chapter": 3,
+      "passed": true,
+      "output": "Python: 3.12.14\nscikit-learn: 1.8.0\nNumPy: 2.3.5\npandas: 2.2.3",
+      "warnings": ""
+    },
+    {
+      "chapter": 4,
+      "passed": true,
+      "output": "Shape: (3, 2)\nFirst row: [ 1 10]\nFirst feature: [1 2 3]\nColumn means: [ 2. 20.]\nOne-column shape: (3, 1)\nShifted first row: [  2 110]",
+      "warnings": ""
+    },
+    {
+      "chapter": 5,
+      "passed": true,
+      "output": "hours  score\n   1.0     20\n   2.0     35\n   NaN     40\n   4.0     65\nMissing per column:\nhours    1\nscore    0\nShapes: (4, 1) (4,)",
+      "warnings": ""
+    },
+    {
+      "chapter": 6,
+      "passed": true,
+      "output": "Saved inspection.png; points: 5\nCorrelation: 0.997",
+      "warnings": ""
+    },
+    {
+      "chapter": 7,
+      "passed": true,
+      "output": "Train, validation, test rows: 341 114 114\nValidation accuracy: 0.965",
+      "warnings": ""
+    },
+    {
+      "chapter": 8,
+      "passed": true,
+      "output": "Scaler learned features: 30\nFirst transformed row: [-1.072 -0.658 -1.088]\nPrediction: [1]",
+      "warnings": ""
+    },
+    {
+      "chapter": 9,
+      "passed": true,
+      "output": "Model folds: [0.965 0.974 0.991 0.973]\nMean and spread: 0.976 0.01\nBaseline mean: 0.626",
+      "warnings": ""
+    },
+    {
+      "chapter": 10,
+      "passed": true,
+      "output": "Weight: [2.]\nIntercept: 1.0\nResiduals: [-0.  0.  0.]\nAt x=4: [9.]",
+      "warnings": ""
+    },
+    {
+      "chapter": 11,
+      "passed": true,
+      "output": "MAE: 2.0\nMSE: 4.667\nRMSE: 2.16\nR2: 0.93",
+      "warnings": ""
+    },
+    {
+      "chapter": 12,
+      "passed": true,
+      "output": "Classes: [0 1]\nProbabilities: [[1.    0.   ]\n [0.    1.   ]\n [0.994 0.006]]\nLabels: [0 1 0]\nRow sums: [1. 1. 1.]",
+      "warnings": ""
+    },
+    {
+      "chapter": 13,
+      "passed": true,
+      "output": "Matrix (rows actual): [[6, 2], [4, 8]]\nAccuracy: 0.7\nPrecision: 0.8\nRecall: 0.667\nF1: 0.727",
+      "warnings": ""
+    },
+    {
+      "chapter": 14,
+      "passed": true,
+      "output": "Medians: [ 3. 20.]\nTransformed new row: [[ 3. 50.  0.]]",
+      "warnings": ""
+    },
+    {
+      "chapter": 15,
+      "passed": true,
+      "output": "Columns: ['city_Akure', 'city_Lagos']\nKnown: [[1.0, 0.0]]\nUnknown: [[0.0, 0.0]]",
+      "warnings": ""
+    },
+    {
+      "chapter": 16,
+      "passed": true,
+      "output": "Means: [  2. 200.]\nScaled means: [0. 0.]\nExpanded names: ['x0', 'x1', 'x0^2', 'x0 x1', 'x1^2']",
+      "warnings": ""
+    },
+    {
+      "chapter": 17,
+      "passed": true,
+      "output": "Features: ['num__size', 'cat__city_A', 'cat__city_B']\nNew prediction: [51.]",
+      "warnings": ""
+    },
+    {
+      "chapter": 18,
+      "passed": true,
+      "output": "Predictions: [ 3.48  6.39 11.18 19.09]\nOriginal-unit MAE: 0.0",
+      "warnings": ""
+    },
+    {
+      "chapter": 19,
+      "passed": true,
+      "output": "alpha, mean MAE: 0.1 9.38\nalpha, mean MAE: 10 11.58\nalpha, mean MAE: 100 40.83",
+      "warnings": ""
+    },
+    {
+      "chapter": 20,
+      "passed": true,
+      "output": "neighbors 0.963\ntree 0.932",
+      "warnings": ""
+    },
+    {
+      "chapter": 21,
+      "passed": true,
+      "output": "RandomForestClassifier 0.956\nExtraTreesClassifier 0.965",
+      "warnings": ""
+    },
+    {
+      "chapter": 22,
+      "passed": true,
+      "output": "Fold accuracies: [0.974 0.941 0.947]\nMean: 0.954",
+      "warnings": ""
+    },
+    {
+      "chapter": 23,
+      "passed": true,
+      "output": "Group folds: no overlap\nLast train / first validation: 1 3\nLast train / first validation: 4 6\nLast train / first validation: 7 9",
+      "warnings": ""
+    },
+    {
+      "chapter": 24,
+      "passed": true,
+      "output": "Best settings: {'logisticregression__C': 0.1}\nMean CV accuracy: 0.978\nCandidates: 3",
+      "warnings": ""
+    },
+    {
+      "chapter": 25,
+      "passed": true,
+      "output": "Weighted fit predictions: [ 1.35  4.32  7.3  10.27]\nNegative MAE: -3.0\nWeighted MAE: 1.046",
+      "warnings": ""
+    },
+    {
+      "chapter": 26,
+      "passed": true,
+      "output": "Validation prevalence: 0.053\nAverage precision: 0.613\n0.3 0.242 1.0\n0.5 0.353 0.75\n0.7 0.455 0.625",
+      "warnings": ""
+    },
+    {
+      "chapter": 27,
+      "passed": true,
+      "output": "Validation Brier loss: 0.0318\nProbability range: 0.0 1.0",
+      "warnings": ""
+    },
+    {
+      "chapter": 28,
+      "passed": true,
+      "output": "Predictions: [0, 1]\nFeature count: 23",
+      "warnings": ""
+    },
+    {
+      "chapter": 29,
+      "passed": true,
+      "output": "Cluster sizes: [65, 51, 62]\nSilhouette: 0.285",
+      "warnings": ""
+    },
+    {
+      "chapter": 30,
+      "passed": true,
+      "output": "Original / reduced shapes: (1797, 64) (1797, 10)\nVariance retained: 0.589",
+      "warnings": ""
+    },
+    {
+      "chapter": 31,
+      "passed": true,
+      "output": "Target shape: (120, 3)\nMicro F1: 0.742\nSubset accuracy: 0.4",
+      "warnings": ""
+    },
+    {
+      "chapter": 32,
+      "passed": true,
+      "output": "Mean importances: [15.39 17.28 44.83  6.34]\nPartial dependence shape: (1, 5)",
+      "warnings": ""
+    },
+    {
+      "chapter": 34,
+      "passed": true,
+      "output": "Predictions match: True",
+      "warnings": ""
+    },
+    {
+      "chapter": 35,
+      "passed": true,
+      "output": "[{'hours': 2, 'distance': 3}]\nRejected: Expected exactly hours and distance",
+      "warnings": ""
+    },
+    {
+      "chapter": 36,
+      "passed": true,
+      "output": "Development MAE: {'baseline': np.float64(80.83), 'ridge': np.float64(9.47)}\nSelected: ridge\nFinal-test MAE: 9.95",
+      "warnings": ""
+    },
+    {
+      "chapter": 37,
+      "passed": true,
+      "output": "Repaired development accuracy: 0.976\nFinal-test rows remain reserved: 114",
+      "warnings": ""
+    },
+    {
+      "chapter": 39,
+      "passed": true,
+      "output": "Mean accuracy: 0.971",
+      "warnings": ""
+    },
+    {
+      "chapter": 40,
+      "passed": true,
+      "output": "Flagged count: 3\nDistant record label: -1",
+      "warnings": ""
+    },
+    {
+      "chapter": 41,
+      "passed": true,
+      "output": "Transformed: [[0.    1.386]\n [2.197 2.773]]\nRecovered: [[ 0.  3.]\n [ 8. 15.]]",
+      "warnings": ""
+    },
+    {
+      "chapter": 42,
+      "passed": true,
+      "output": "Held-out accuracy: 0.7\nSeen training rows: 160",
+      "warnings": ""
+    },
+    {
+      "chapter": 43,
+      "passed": true,
+      "output": "Ensemble mean: 0.974",
+      "warnings": ""
+    },
+    {
+      "chapter": 44,
+      "passed": true,
+      "output": "target  lag1  mean3\n    3.0   2.0    1.0\n    4.0   3.0    2.0\n    5.0   4.0    3.0\nOne-step rows: 17",
+      "warnings": ""
+    },
+    {
+      "chapter": 45,
+      "passed": true,
+      "output": "Validation accuracy: 0.911",
+      "warnings": ""
+    },
+    {
+      "chapter": 46,
+      "passed": true,
+      "output": "Average precision: 0.816",
+      "warnings": ""
+    },
+    {
+      "chapter": 47,
+      "passed": true,
+      "output": "Valid: 200 {'prediction': 9.0}\nInvalid status: 422",
+      "warnings": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n  from starlette.testclient import TestClient as TestClient  # noqa"
+    }
+  ]
+}
